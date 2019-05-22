@@ -9,10 +9,12 @@ export default class extends BaseValidator {
     return super._cannotEmpty()
       .then(this._checkFormat)
       .then((res) => {
-        return { success: true };
+        return {
+          success: true
+        };
       })
       .catch(err => {
-        return err; 
+        return err;
       });
   }
   _checkFormat() {
@@ -21,12 +23,10 @@ export default class extends BaseValidator {
     if (match) {
       return Promise.resolve();
     } else {
-      return Promise.reject({
-        success: false,
-        type: this.type,
-        message: `${this.typeName}には半角英数字のみ利用可能です。また名字と名前をスペースで書く必要があります。`
-      })
+      const message = `${this.typeName}には半角英数字のみ利用可能です。また名字と名前をスペースで書く必要があります。`
+      const errorResult = super._errorResult(message)
+      return Promise.reject(errorResult);
     }
   }
-  
+
 }

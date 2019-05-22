@@ -9,7 +9,9 @@ export default class extends BaseValidator {
     return super._cannotEmpty()
       .then(this._checkFormat)
       .then((res) => {
-        return { success: true };
+        return {
+          success: true
+        };
       })
       .catch(err => {
         return err;
@@ -21,11 +23,9 @@ export default class extends BaseValidator {
     if (match) {
       return Promise.resolve();
     } else {
-      return Promise.reject({
-        success: false,
-        type: this.type,
-        message: `${this.typeName}には、半角英数字と記号のみが利用可能です。`
-      })
+      const message = `${this.typeName}には、半角英数字と記号のみが利用可能です。`;
+      const errorResult = super._errorResult(message);
+      return Promise.reject(errorResult);
     }
   }
 

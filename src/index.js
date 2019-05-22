@@ -21,8 +21,8 @@ const validate = (params) => {
     nameValidator.validate(),
     usernameValidator.validate(),
     mailValidator.validate(),
-    passwordValidator.validate()]
-  )
+    passwordValidator.validate()
+  ])
 }
 
 const removeErrors = () => {
@@ -45,13 +45,13 @@ const addErrorMessage = (type, message) => {
 
 const signup = (params) => {
   return fetch(`${endpoint}/signup`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json; charset=utf-8',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(params)
-  })
+      method: 'POST',
+      headers: {
+        Accept: 'application/json; charset=utf-8',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params)
+    })
     .then((res) => {
       const json = res.json();
       if (res.status === 200) { // 登録成功
@@ -68,19 +68,19 @@ const onSubmit = async () => {
   const passwordInput = document.getElementById('password');
   const nameInput = document.getElementById('name');
   const usernameInput = document.getElementById('username');
-  const emailVal = emailInput.value;
-  const passwordVal = passwordInput.value;
-  const nameVal = nameInput.value;
-  const usernameVal = usernameInput.value;
+  const email = emailInput.value;
+  const password = passwordInput.value;
+  const name = nameInput.value;
+  const username = usernameInput.value;
   const params = {
-    email: emailVal,
-    password: passwordVal,
-    username: usernameVal,
-    name: nameVal
+    email,
+    password,
+    username,
+    name
   }
   const results = await validate(params);
   if (
-    results[0].success && 
+    results[0].success &&
     results[1].success &&
     results[2].success &&
     results[3].success) {
@@ -94,7 +94,7 @@ const onSubmit = async () => {
   } else {
     results.forEach((result) => {
       if (!result.success) addErrorMessage(result.type, result.message);
-    }) 
+    })
   }
 }
 

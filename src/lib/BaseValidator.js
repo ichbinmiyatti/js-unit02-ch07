@@ -18,4 +18,11 @@ export default class {
       }
     });
   }
+  _errorResult(message) {
+    return {
+      success: false,
+      type: this.type,
+      message
+    }
+  }
 }

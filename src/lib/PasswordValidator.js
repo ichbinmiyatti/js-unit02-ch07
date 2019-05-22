@@ -15,7 +15,9 @@ export default class extends BaseValidator {
       .then(this._includeCapLetter)
       .then(this._includeSymbol)
       .then((res) => {
-        return { success: true }; // Promise.resolve({ success: true })と同一
+        return {
+          success: true
+        }; // Promise.resolve({ success: true })と同一
       })
       .catch(err => {
         return err; // Promise.resolve(err)と同一
@@ -25,11 +27,9 @@ export default class extends BaseValidator {
     if (this.val.length >= 8) {
       return Promise.resolve();
     } else {
-      return Promise.reject({
-        success: false,
-        type: this.type,
-        message: 'パスワードが短すぎます。'
-      });
+      const message = 'パスワードが短すぎます。';
+      const errorResult = super._errorResult(message);
+      return Promise.reject(errorResult);
     }
   }
   _checkFormat() {
@@ -38,11 +38,9 @@ export default class extends BaseValidator {
     if (match) {
       return Promise.resolve();
     } else {
-      return Promise.reject({
-        success: false,
-        type: this.type,
-        message: `${this.typeName}には、半角英数字と記号のみが利用可能です。`
-      })
+      const message = `${this.typeName}には、半角英数字と記号のみが利用可能です。`;
+      const errorResult = super._errorResult(message);
+      return Promise.reject(errorResult);
     }
   }
   _includeCapLetter() {
@@ -51,11 +49,9 @@ export default class extends BaseValidator {
     if (match) {
       return Promise.resolve();
     } else {
-      return Promise.reject({
-        success: false,
-        type: this.type,
-        message: `${this.typeName}には、必ず大文字の英数字が含まれる必要があります。`
-      })
+      const message = `${this.typeName}には、必ず大文字の英数字が含まれる必要があります。`;
+      const errorResult = super._errorResult(message);
+      return Promise.reject(errorResult);
     }
   }
   _includeSymbol() {
@@ -64,11 +60,9 @@ export default class extends BaseValidator {
     if (match) {
       return Promise.resolve();
     } else {
-      return Promise.reject({
-        success: false,
-        type: this.type,
-        message: `${this.typeName}には、_-@.の記号のいずれかが一文字以上含まれる必要があります。`
-      })
+      const message = `${this.typeName}には、_-@.の記号のいずれかが一文字以上含まれる必要があります。`;
+      const errorResult = super._errorResult(message);
+      return Promise.reject(errorResult);
     }
   }
 }
